@@ -27,16 +27,6 @@ public class Othello extends JFrame implements MouseListener, MouseMotionListene
 	private static final int WHITE = 1;
 
 
-	private static final int UP 			= 0;
-	private static final int UPRIGHT 	= 1;
-	private static final int RIGHT 		= 2;
-	private static final int DOWNRIGHT 	= 3;
-	private static final int DOWN 		= 4;
-	private static final int DOWNLEFT 	= 5;
-	private static final int LEFT	 	= 6;
-	private static final int UPLEFT	 	= 7;
-
-
 	private Container c;
 	private JButton[][] buttonArray;
 	private int myColor;
