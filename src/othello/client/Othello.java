@@ -23,6 +23,9 @@ public class Othello extends JFrame implements MouseListener, MouseMotionListene
 	private static final ImageIcon blackIcon = new ImageIcon("Black.jpg");
 	private static final ImageIcon boardIcon = new ImageIcon("GreenFrame.jpg");
 
+	// マス設定
+	private static final int MASS_SIZE = 8;
+
 	private static final int BLACK = 0;
 	private static final int WHITE = 1;
 
@@ -39,7 +42,7 @@ public class Othello extends JFrame implements MouseListener, MouseMotionListene
 		createWindow(name);
 
 		// ボタンの生成
-		createButton();
+		createButton(MASS_SIZE);
 
 		// サーバに接続する
 		conectServer(server, port);
@@ -60,28 +63,30 @@ public class Othello extends JFrame implements MouseListener, MouseMotionListene
 		}
 	}
 
-	private void createButton() {
-		buttonArray = new JButton[8][8]; // ボタンの配列を５個作成する[0]から[4]まで使える
-		for(int x=0;x<8;x++){
-			for(int y=0;y<8;y++){
+	private void createButton(int size) {
+		if(size%2 ==1) throw new IllegalArgumentException("マスの数" + size + "は偶数");
+
+		buttonArray = new JButton[size][size]; // ボタンの配列を５個作成する[0]から[4]まで使える
+		for(int x=0;x<size;x++){
+			for(int y=0;y<size;y++){
 				buttonArray[x][y] = new JButton(boardIcon); // ボタンにアイコンを設定する
 				c.add(buttonArray[x][y]); // ペインに貼り付ける
 				buttonArray[x][y].setBounds(x*45,y*45,45,45); // ボタンの大きさと位置を設定する．(x座標，y座標,xの幅,yの幅）
 				buttonArray[x][y].addMouseListener(this); // ボタンをマウスでさわったときに反応するようにする
 				buttonArray[x][y].addMouseMotionListener(this); // ボタンをマウスで動かそうとしたときに反応するようにする
-				buttonArray[x][y].setActionCommand(Integer.toString(y*8+x)); // ボタンに配列の情報を付加する（ネットワークを介してオブジェクトを識別するため）
+				buttonArray[x][y].setActionCommand(Integer.toString(y*size+x)); // ボタンに配列の情報を付加する（ネットワークを介してオブジェクトを識別するため）
 			}
 		}
-		clickButton(this.buttonArray[3][3],BLACK);
-		clickButton(this.buttonArray[3][4],WHITE);
-		clickButton(this.buttonArray[4][4],BLACK);
-		clickButton(this.buttonArray[4][3],WHITE);
+		clickButton(this.buttonArray[MASS_SIZE/2][MASS_SIZE/2],BLACK);
+		clickButton(this.buttonArray[MASS_SIZE/2 -1][MASS_SIZE/2],WHITE);
+		clickButton(this.buttonArray[MASS_SIZE/2 -1][MASS_SIZE/2 -1],BLACK);
+		clickButton(this.buttonArray[MASS_SIZE/2][MASS_SIZE/2 -1],WHITE);
 	}
 
 	private void createWindow(String name) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // ウィンドウを閉じるときに，正しく閉じるように設定する
 		setTitle("Othello: " + name); // ウィンドウのタイトルを設定する
-		setSize(400,420); // ウィンドウのサイズを設定する
+		setSize(45*MASS_SIZE+25,45*MASS_SIZE+55); // ウィンドウのサイズを設定する
 		c = getContentPane(); // フレームのペインを取得する
 		c.setLayout(null); // 自動レイアウトの設定を行わない
 	}
