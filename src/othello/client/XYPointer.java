@@ -4,30 +4,30 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
-public class XYCoordinate {
-	private int xCoordinate;
-	private int yCoordinate;
+public class XYPointer {
+	private int xPointer;
+	private int yPointer;
 
-	public XYCoordinate(int x,int y){
+	public XYPointer(int x,int y){
 		if(x < 0)throw new IllegalArgumentException("x < 0");
 		if(y < 0)throw new IllegalArgumentException("y < 0");
 		if(x > 7)throw new IllegalArgumentException("x > 7");
 		if(y > 7)throw new IllegalArgumentException("y > 7");
 
-		this.xCoordinate = x;
-		this.yCoordinate = y;
+		this.xPointer = x;
+		this.yPointer = y;
 	}
-	public XYCoordinate(MouseEvent e){
+	public XYPointer(MouseEvent e){
 		this( (JButton)e.getComponent());
 	}
-	public XYCoordinate(JButton theButton){
+	public XYPointer(JButton theButton){
 		this(Integer.parseInt(theButton.getActionCommand())%8,Integer.parseInt(theButton.getActionCommand())/8);
 	}
-	public int getxCoordinate() {
-		return xCoordinate;
+	public int getxPointer() {
+		return xPointer;
 	}
-	public int getyCoordinate() {
-		return yCoordinate;
+	public int getyPointer() {
+		return yPointer;
 	}
 
 

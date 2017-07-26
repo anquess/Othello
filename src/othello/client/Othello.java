@@ -156,23 +156,23 @@ public class Othello extends JFrame implements MouseListener, MouseMotionListene
 	}
 
 
-//途中
-	private boolean checkLine(JButton theButton,int color,int direction){
+
+/*	private boolean checkLine(JButton theButton,int color,int direction){
 		switch (direction) {
 		case UP:
-			
-			
+
+
 			break;
 
 		default:
 			break;
 		}
 	}
-
+*/
 	private void sendClicInfomation(JButton theButton) {
-		XYCoordinate coordinate = new XYCoordinate(theButton);
+		XYPointer Pointer = new XYPointer(theButton);
 		//送信情報を作成する（受信時には，この送った順番にデータを取り出す．スペースがデータの区切りとなる）
-		String msg = "CLICK" + " " + coordinate.getxCoordinate() + " " + coordinate.getyCoordinate() + " " + this.myColor;
+		String msg = "CLICK" + " " + Pointer.getxPointer() + " " + Pointer.getyPointer() + " " + this.myColor;
 
 		//サーバに情報を送る
 		sout.println(msg); //送信データをバッファに書き出す
